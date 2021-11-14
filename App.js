@@ -1,21 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+import StackNav from './routes/StackNav';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	const [font, setFont] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	const loadFonts = async () => {
+		await Font.loadAsync({
+			poppins: require('./assets/fonts/poppins.ttf'),
+			poppins_bold: require('./assets/fonts/poppins-bold.ttf'),
+		})
+	}
+
+	if (!font){
+		return(
+			<AppLoading 
+				startAsync={loadFonts}
+				onFinish={()=>{setFont(true)}}
+				onError={e => console.warn(e)}
+			/>
+		)
+	}
+
+	return(
+		<StackNav />
+	)
+}

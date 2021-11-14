@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+FarmBridge.apk
 
 # macOS
 .DS_Store
